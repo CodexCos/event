@@ -1,0 +1,52 @@
+[
+  {
+    "id": "notif-001",
+    "userId": "part-001",
+    "type": "reminder",
+    "title": "TechSummit 2026 is in 3 days!",
+    "message": "Don't forget — TechSummit 2026 starts on August 15th at 9:00 AM. The venue is San Francisco Convention Center. Check your email for your ticket QR code.",
+    "eventId": "evt-001",
+    "read": false,
+    "createdAt": "2026-08-12T10:00:00Z"
+  },
+  {
+    "id": "notif-002",
+    "userId": "part-001",
+    "type": "update",
+    "title": "Harmony Music Festival — Schedule Updated",
+    "message": "The organizer has updated the festival schedule. The headline act now starts at 8 PM instead of 7 PM. Please update your plans accordingly.",
+    "eventId": "evt-002",
+    "read": false,
+    "createdAt": "2026-07-10T14:30:00Z"
+  },
+  {
+    "id": "notif-003",
+    "userId": "part-001",
+    "type": "confirmation",
+    "title": "Registration Confirmed: Global Food & Wine Expo",
+    "message": "Your registration for Global Food & Wine Expo on August 22nd has been confirmed. We look forward to seeing you there!",
+    "eventId": "evt-006",
+    "read": true,
+    "createdAt": "2026-06-10T09:15:00Z"
+  },
+  {
+    "id": "notif-004",
+    "userId": "part-001",
+    "type": "cancellation",
+    "title": "Registration Cancelled: Women in Tech Leadership",
+    "message": "Your registration for Women in Tech Leadership Conference has been cancelled as requested. We hope to see you at future events.",
+    "eventId": "evt-009",
+    "read": true,
+    "createdAt": "2026-05-20T16:45:00Z"
+  },
+  {
+    "id": "notif-005",
+    "userId": "part-001",
+    "type": "reminder",
+    "title": "Event Tomorrow: Global Food & Wine Expo",
+    "message": "Your event is tomorrow! Global Food & Wine Expo at Javits Center opens at 11 AM. Doors open 30 minutes early for early registrants.",
+    "eventId": "evt-006",
+    "read": false,
+    "createdAt": "2026-08-21T18:00:00Z"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  { "id": "reg-001", "userId": "part-001", "eventId": "evt-001", "status": "confirmed", "registeredAt": "2026-06-01", "attended": false },
+  { "id": "reg-002", "userId": "part-001", "eventId": "evt-002", "status": "confirmed", "registeredAt": "2026-06-05", "attended": false },
+  { "id": "reg-003", "userId": "part-001", "eventId": "evt-006", "status": "confirmed", "registeredAt": "2026-06-10", "attended": false },
+  { "id": "reg-004", "userId": "part-001", "eventId": "evt-009", "status": "cancelled", "registeredAt": "2026-05-20", "attended": false },
+  { "id": "reg-005", "userId": "part-002", "eventId": "evt-003", "status": "confirmed", "registeredAt": "2026-06-08", "attended": false },
+  { "id": "reg-006", "userId": "part-002", "eventId": "evt-010", "status": "confirmed", "registeredAt": "2026-06-12", "attended": false },
+  { "id": "reg-007", "userId": "part-003", "eventId": "evt-005", "status": "confirmed", "registeredAt": "2026-06-03", "attended": false },
+  { "id": "reg-008", "userId": "part-003", "eventId": "evt-002", "status": "confirmed", "registeredAt": "2026-06-07", "attended": false },
+  { "id": "reg-009", "userId": "part-004", "eventId": "evt-001", "status": "confirmed", "registeredAt": "2026-06-02", "attended": false },
+  { "id": "reg-010", "userId": "part-004", "eventId": "evt-004", "status": "confirmed", "registeredAt": "2026-06-09", "attended": false },
+  { "id": "reg-011", "userId": "part-005", "eventId": "evt-006", "status": "confirmed", "registeredAt": "2026-06-04", "attended": false },
+  { "id": "reg-012", "userId": "part-006", "eventId": "evt-008", "status": "confirmed", "registeredAt": "2026-06-11", "attended": false },
+  { "id": "reg-013", "userId": "part-007", "eventId": "evt-003", "status": "confirmed", "registeredAt": "2026-06-06", "attended": false },
+  { "id": "reg-014", "userId": "part-008", "eventId": "evt-007", "status": "confirmed", "registeredAt": "2026-05-28", "attended": false },
+  { "id": "reg-015", "userId": "part-009", "eventId": "evt-004", "status": "confirmed", "registeredAt": "2026-06-13", "attended": false }
+]

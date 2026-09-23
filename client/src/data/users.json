@@ -1,0 +1,172 @@
+[
+  {
+    "id": "admin-001",
+    "name": "Rajesh",
+    "email": "rajesh@eventmate.com",
+    "password": "admin123",
+    "role": "admin",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=admin001",
+    "status": "active",
+    "joinedAt": "2024-01-10",
+    "bio": "Platform Administrator"
+  },
+  {
+    "id": "org-001",
+    "name": "Shyam",
+    "email": "shyam@eventpro.com",
+    "password": "organizer123",
+    "role": "organizer",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=org001",
+    "status": "active",
+    "joinedAt": "2024-03-15",
+    "bio": "Event production specialist with 8 years experience in tech conferences.",
+    "company": "EventPro Agency"
+  },
+  {
+    "id": "org-002",
+    "name": "Sita",
+    "email": "sita@soundwave.com",
+    "password": "organizer123",
+    "role": "organizer",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=org002",
+    "status": "active",
+    "joinedAt": "2024-05-20",
+    "bio": "Music festival organizer & cultural curator.",
+    "company": "Soundwave Events"
+  },
+  {
+    "id": "org-003",
+    "name": "Hari",
+    "email": "hari@sporthouse.com",
+    "password": "organizer123",
+    "role": "organizer",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=org003",
+    "status": "active",
+    "joinedAt": "2024-02-28",
+    "bio": "Sports event coordinator and marathon director.",
+    "company": "SportHouse Events"
+  },
+  {
+    "id": "org-004",
+    "name": "Gita",
+    "email": "gita@techevents.io",
+    "password": "organizer123",
+    "role": "organizer",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=org004",
+    "status": "active",
+    "joinedAt": "2024-04-10",
+    "bio": "Technology event organizer focused on developer education.",
+    "company": "TechEvents.io"
+  },
+  {
+    "id": "org-005",
+    "name": "Ram",
+    "email": "ram@artscene.com",
+    "password": "organizer123",
+    "role": "organizer",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=org005",
+    "status": "inactive",
+    "joinedAt": "2024-06-01",
+    "bio": "Art scene curator and community event organizer.",
+    "company": "ArtScene Collective"
+  },
+  {
+    "id": "part-001",
+    "name": "Laxmi",
+    "email": "laxmi@eventmate.com",
+    "password": "participant123",
+    "role": "participant",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=part001",
+    "status": "active",
+    "joinedAt": "2024-07-12",
+    "interests": ["Technology", "Music", "Business"]
+  },
+  {
+    "id": "part-002",
+    "name": "Krishna",
+    "email": "krishna@eventmate.com",
+    "password": "participant123",
+    "role": "participant",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=part002",
+    "status": "active",
+    "joinedAt": "2024-08-05",
+    "interests": ["Sports", "Food"]
+  },
+  {
+    "id": "part-003",
+    "name": "Rita",
+    "email": "rita@eventmate.com",
+    "password": "participant123",
+    "role": "participant",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=part003",
+    "status": "active",
+    "joinedAt": "2024-09-18",
+    "interests": ["Art", "Music", "Food"]
+  },
+  {
+    "id": "part-004",
+    "name": "Gopal",
+    "email": "gopal@eventmate.com",
+    "password": "participant123",
+    "role": "participant",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=part004",
+    "status": "active",
+    "joinedAt": "2024-10-02",
+    "interests": ["Technology", "Business"]
+  },
+  {
+    "id": "part-005",
+    "name": "Nita",
+    "email": "nita@eventmate.com",
+    "password": "participant123",
+    "role": "participant",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=part005",
+    "status": "inactive",
+    "joinedAt": "2024-11-15",
+    "interests": ["Food", "Art"]
+  },
+  {
+    "id": "part-006",
+    "name": "Anju",
+    "email": "anju@eventmate.com",
+    "password": "participant123",
+    "role": "participant",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=part006",
+    "status": "active",
+    "joinedAt": "2025-01-08",
+    "interests": ["Music", "Art"]
+  },
+  {
+    "id": "part-007",
+    "name": "Sunil",
+    "email": "sunil@eventmate.com",
+    "password": "participant123",
+    "role": "participant",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=part007",
+    "status": "active",
+    "joinedAt": "2025-02-20",
+    "interests": ["Sports", "Business"]
+  },
+  {
+    "id": "part-008",
+    "name": "Puja",
+    "email": "puja@eventmate.com",
+    "password": "participant123",
+    "role": "participant",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=part008",
+    "status": "active",
+    "joinedAt": "2025-03-10",
+    "interests": ["Technology", "Music", "Sports"]
+  },
+  {
+    "id": "part-009",
+    "name": "Anil",
+    "email": "anil@eventmate.com",
+    "password": "participant123",
+    "role": "participant",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=part009",
+    "status": "active",
+    "joinedAt": "2025-04-05",
+    "interests": ["Business", "Food", "Technology"]
+  }
+]

@@ -1,26 +1,28 @@
 import React from 'react';
 
+const SINGLE_COLOR = 'bg-blue-50 text-[#014baa] border-[#014baa]/30';
+
 const CATEGORY_COLORS = {
-  Technology: 'bg-blue-50 text-[#014baa] border-[#014baa]/30',
-  Music:       'bg-purple-50 text-purple-700 border-purple-200',
-  Sports:      'bg-cyan-50 text-cyan-700 border-cyan-200',
-  Business:    'bg-emerald-50 text-emerald-700 border-emerald-200',
-  Art:         'bg-amber-50 text-amber-800 border-amber-200',
-  Food:        'bg-red-50 text-red-700 border-red-200',
-  default:     'bg-stone-100 text-stone-600 border-stone-200',
+  Technology: SINGLE_COLOR,
+  Music:      SINGLE_COLOR,
+  Sports:     SINGLE_COLOR,
+  Business:   SINGLE_COLOR,
+  Art:        SINGLE_COLOR,
+  Food:       SINGLE_COLOR,
+  default:    SINGLE_COLOR,
 };
 
 const STATUS_COLORS = {
-  confirmed: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  pending:   'bg-amber-50 text-amber-800 border-amber-200',
-  cancelled: 'bg-red-50 text-red-700 border-red-200',
-  attended:  'bg-blue-50 text-[#014baa] border-[#014baa]/20',
-  active:    'bg-emerald-50 text-emerald-700 border-emerald-200',
-  inactive:  'bg-stone-100 text-stone-500 border-stone-200',
-  featured:  'bg-blue-50 text-[#014baa] border-[#014baa]/40 font-semibold',
-  trending:  'bg-orange-50 text-orange-700 border-orange-200',
-  full:      'bg-red-50 text-red-700 border-red-200',
-  draft:     'bg-stone-800 text-stone-300 border-stone-700',
+  confirmed: SINGLE_COLOR,
+  pending:   SINGLE_COLOR,
+  cancelled: SINGLE_COLOR,
+  attended:  SINGLE_COLOR,
+  active:    SINGLE_COLOR,
+  inactive:  SINGLE_COLOR,
+  featured:  SINGLE_COLOR,
+  trending:  SINGLE_COLOR,
+  full:      SINGLE_COLOR,
+  draft:     SINGLE_COLOR,
 };
 
 const Badge = ({ children, category, status, className = '' }) => {

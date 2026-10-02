@@ -1,6 +1,5 @@
 const mlService = require('../services/mlService');
 
-// GET /api/ml/recommendations/:userId
 const getRecommendations = async (req, res) => {
   const { userId } = req.params;
   const limit = Number(req.query.limit) || 6;
@@ -14,7 +13,6 @@ const getRecommendations = async (req, res) => {
   }
 };
 
-// GET /api/ml/user-clusters
 const getUserClusters = async (req, res) => {
   try {
     const data = await mlService.getUserClusters();
@@ -25,7 +23,6 @@ const getUserClusters = async (req, res) => {
   }
 };
 
-// GET /api/ml/user-persona/:userId
 const getUserPersona = async (req, res) => {
   const { userId } = req.params;
   try {

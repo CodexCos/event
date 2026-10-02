@@ -17,6 +17,7 @@ app.use('/api/registrations', require('./routes/registrations'));
 app.use('/api/users',         require('./routes/users'));
 app.use('/api/analytics',     require('./routes/analytics'));
 app.use('/api/notifications', require('./routes/notifications'));
+app.use('/api/payments',      require('./routes/payments'));
 app.use('/api/ml',            require('./routes/ml'));
 
 // 404 fallback

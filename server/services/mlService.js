@@ -3,7 +3,6 @@ const camelize = require('../utils/camelize');
 const DecisionTreeClassifier = require('../utils/decisionTree');
 const KMeansClustering = require('../utils/kmeans');
 
-// Helper to determine price tier (0: Free, 1: Budget, 2: Mid-range, 3: Premium)
 const getPriceTier = (price) => {
   const p = Number(price) || 0;
   if (p === 0) return 0;
@@ -12,14 +11,12 @@ const getPriceTier = (price) => {
   return 3;
 };
 
-// Helper to check if event date is on a weekend (Saturday or Sunday)
 const isWeekend = (dateStr) => {
   if (!dateStr) return 0;
   const day = new Date(dateStr).getDay();
   return (day === 0 || day === 6) ? 1 : 0;
 };
 
-// Calculate interest array overlap
 const getInterestOverlap = (userInterests = [], eventCategory = '', eventTags = []) => {
   if (!Array.isArray(userInterests) || userInterests.length === 0) return 0;
   const userIntLower = userInterests.map(i => i.toLowerCase());
@@ -38,16 +35,9 @@ const getInterestOverlap = (userInterests = [], eventCategory = '', eventTags = 
   return overlap;
 };
 
-/**
- * Service to manage Decision Tree Recommendations and K-Means User Segmentation
- */
 class MLService {
-  /**
-   * Train Decision Tree & generate personalized event recommendations for a user
-   */
   async getPersonalizedRecommendations(userId, limit = 6) {
     try {
-      // 1. Fetch Users, Events, and Registrations from DB
       const [usersRes, eventsRes, regsRes] = await Promise.all([
         pool.query('SELECT id, name, email, interests FROM users'),
         pool.query(`
@@ -68,12 +58,10 @@ class MLService {
       const userMap = new Map(users.map(u => [u.id, u]));
       const currentUser = userMap.get(userId);
 
-      // Track registered event IDs for the user
       const userRegisteredEventIds = new Set(
         registrations.filter(r => r.user_id === userId).map(r => r.event_id)
       );
 
-      // 2. Build Decision Tree Feature Dataset
       const featureNames = [
         'Category Match',
         'Interest Overlap Score',
@@ -90,7 +78,6 @@ class MLService {
       const dataset = [];
       const labels = [];
 
-      // Positive samples (y = 1) from confirmed registrations
       for (const reg of registrations) {
         const u = userMap.get(reg.user_id);
         const e = events.find(ev => ev.id === reg.event_id);
@@ -106,12 +93,10 @@ class MLService {
         }
       }
 
-      // Negative samples (y = 0) generated for contrast
       for (const u of users) {
         const uRegs = new Set(registrations.filter(r => r.user_id === u.id).map(r => r.event_id));
         const unregEvents = events.filter(ev => !uRegs.has(ev.id));
 
-        // Sample up to 2 unregistered events per user
         const sampled = unregEvents.slice(0, 2);
         for (const e of sampled) {
           const categoryMatch = (u.interests || []).some(i => i.toLowerCase() === (e.category || '').toLowerCase()) ? 1 : 0;
@@ -125,13 +110,11 @@ class MLService {
         }
       }
 
-      // 3. Train Decision Tree Classifier
       const dt = new DecisionTreeClassifier(4, 2);
       if (dataset.length > 0) {
         dt.fit(dataset, labels, featureNames);
       }
 
-      // 4. Score all upcoming published events for target user
       const targetInterests = currentUser ? (currentUser.interests || []) : [];
       const targetUserHistory = userRegCounts[userId] || 0;
 
@@ -145,13 +128,11 @@ class MLService {
         const sample = [categoryMatch, overlap, priceTier, weekend, targetUserHistory];
         const prediction = dt.root ? dt.predictSample(sample) : { probability: 0.5, path: [] };
 
-        // Calculate final score percentage
         let scorePct = Math.round(prediction.probability * 100);
 
-        // Boost score slightly if category matches explicitly
         if (categoryMatch) scorePct = Math.min(99, scorePct + 15);
         if (overlap > 0) scorePct = Math.min(99, scorePct + 10);
-        if (scorePct < 30) scorePct = Math.floor(Math.random() * 20) + 40; // baseline score
+        if (scorePct < 30) scorePct = Math.floor(Math.random() * 20) + 40;
 
         return {
           ...camelize(e),
@@ -161,7 +142,6 @@ class MLService {
         };
       });
 
-      // Filter out past events and sort by matchScore descending
       const filtered = scoredEvents
         .filter(e => !e.isRegistered)
         .sort((a, b) => b.matchScore - a.matchScore)
@@ -178,9 +158,6 @@ class MLService {
     }
   }
 
-  /**
-   * Run K-Means Clustering on users to group them into personas
-   */
   async getUserClusters() {
     try {
       const [usersRes, eventsRes, regsRes] = await Promise.all([
@@ -195,37 +172,30 @@ class MLService {
 
       const eventMap = new Map(events.map(e => [e.id, e]));
 
-      // Standard category columns for feature vector
       const categories = ['Technology', 'Music', 'Business', 'Health', 'Arts', 'Sports'];
 
-      // Build User Vector Matrix
       const userVectors = users.map(u => {
         const uRegs = regs.filter(r => r.user_id === u.id);
         const regEvents = uRegs.map(r => eventMap.get(r.event_id)).filter(Boolean);
 
-        // Feature 0-5: Category Interest Frequencies
         const catFreqs = categories.map(cat => {
           const inInterests = (u.interests || []).some(i => i.toLowerCase() === cat.toLowerCase()) ? 1 : 0;
           const inRegs = regEvents.filter(e => (e.category || '').toLowerCase() === cat.toLowerCase()).length;
           return inInterests + inRegs * 2;
         });
 
-        // Feature 6: Price sensitivity (avg price of registered events)
         const avgPrice = regEvents.length > 0
           ? regEvents.reduce((acc, e) => acc + Number(e.price || 0), 0) / regEvents.length
           : 0;
 
-        // Feature 7: Total activity
         const activity = regEvents.length;
 
         return [...catFreqs, getPriceTier(avgPrice), activity];
       });
 
-      // Fit K-Means with K = 3
       const kmeans = new KMeansClustering(3, 50);
       const fitResult = kmeans.fit(userVectors);
 
-      // Map users to their clusters
       const clusteredUsers = users.map((u, idx) => {
         const clusterIdx = fitResult.assignments[idx] || 0;
         const badge = kmeans.getPersonaBadge(clusterIdx);
@@ -239,7 +209,6 @@ class MLService {
         };
       });
 
-      // Group statistics
       const clusterStats = [0, 1, 2].map(cIdx => {
         const badge = kmeans.getPersonaBadge(cIdx);
         const members = clusteredUsers.filter(u => u.clusterIndex === cIdx);
@@ -250,7 +219,7 @@ class MLService {
           icon: badge.icon,
           count: members.length,
           percentage: users.length > 0 ? Math.round((members.length / users.length) * 100) : 0,
-          members: members.slice(0, 5) // top sample members
+          members: members.slice(0, 5)
         };
       });
 
@@ -265,9 +234,6 @@ class MLService {
     }
   }
 
-  /**
-   * Get ML persona badge for a single user
-   */
   async getUserPersona(userId) {
     const allClusters = await this.getUserClusters();
     const persona = allClusters.userMap[userId] || {

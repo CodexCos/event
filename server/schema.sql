@@ -57,9 +57,25 @@ CREATE TABLE IF NOT EXISTS notifications (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Payments
+CREATE TABLE IF NOT EXISTS payments (
+  id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id          UUID REFERENCES users(id) ON DELETE CASCADE,
+  event_id         UUID REFERENCES events(id) ON DELETE CASCADE,
+  registration_id  UUID REFERENCES registrations(id) ON DELETE SET NULL,
+  amount           NUMERIC(10, 2) NOT NULL,
+  transaction_uuid VARCHAR(255) UNIQUE NOT NULL,
+  esewa_ref_id     VARCHAR(255),
+  status           VARCHAR(50) DEFAULT 'PENDING',
+  payment_method   VARCHAR(50) DEFAULT 'ESEWA',
+  created_at       TIMESTAMPTZ DEFAULT NOW(),
+  updated_at       TIMESTAMPTZ DEFAULT NOW()
+);
+
 -- Useful view: events with registered count
 CREATE OR REPLACE VIEW events_with_count AS
   SELECT e.*,
     (SELECT COUNT(*) FROM registrations r
      WHERE r.event_id = e.id AND r.status = 'confirmed') AS registered_count
   FROM events e;
+

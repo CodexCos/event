@@ -35,6 +35,9 @@ const Navbar = ({ onMenuToggle, menuOpen, hasSidebar }) => {
 
       {!currentUser ? (
         <div className="flex items-center gap-2 sm:gap-3">
+          <Link to="/defense" className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary-600/15 text-primary-400 border border-primary-500/30 hover:bg-primary-600/25 transition-all">
+            <Zap size={14} /> Defense Presentation
+          </Link>
           <Link to="/events" className="hidden sm:inline-block text-dark-400 hover:text-primary-600 font-semibold text-sm px-2 sm:px-3 py-2 transition-colors">
             Browse Events
           </Link>
@@ -47,12 +50,15 @@ const Navbar = ({ onMenuToggle, menuOpen, hasSidebar }) => {
         </div>
       ) : (
         <div className="flex items-center gap-3">
+          <Link to="/defense" className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary-600/15 text-primary-400 border border-primary-500/30 hover:bg-primary-600/25 transition-all">
+            <Zap size={14} /> Defense Deck
+          </Link>
           {currentUser.role === 'participant' && (
             <Link to="/participant/notifications" id="notif-btn"
               className="p-2 rounded-xl text-dark-400 hover:text-primary-600 hover:bg-dark-800 relative transition-all"
             >
               <Bell size={18} />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#014baa] rounded-full" />
             </Link>
           )}
 
@@ -78,7 +84,7 @@ const Navbar = ({ onMenuToggle, menuOpen, hasSidebar }) => {
                 <button
                   id="logout-btn"
                   onClick={() => { logout(); setProfileOpen(false); }}
-                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors font-medium"
+                  className="w-full flex items-center gap-2 px-3 py-2 text-sm text-[#014baa] hover:bg-blue-50 rounded-lg transition-colors font-medium"
                 >
                   <LogOut size={14} /> Logout
                 </button>

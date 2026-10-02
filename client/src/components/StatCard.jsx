@@ -1,12 +1,12 @@
 import React from 'react';
 
 const colors = {
-  primary: { bg: 'bg-blue-50', border: 'border-blue-100', text: 'text-[#014baa]' },
-  accent:  { bg: 'bg-purple-50', border: 'border-purple-100', text: 'text-purple-700' },
-  emerald: { bg: 'bg-emerald-50', border: 'border-emerald-100', text: 'text-emerald-700' },
-  cyan:    { bg: 'bg-cyan-50', border: 'border-cyan-100', text: 'text-cyan-700' },
-  amber:   { bg: 'bg-amber-50', border: 'border-amber-100', text: 'text-amber-800' },
-  red:     { bg: 'bg-red-50', border: 'border-red-100', text: 'text-red-700' },
+  primary: { bg: 'bg-blue-50', border: 'border-[#014baa]/20', text: 'text-[#014baa]' },
+  accent:  { bg: 'bg-blue-50', border: 'border-[#014baa]/20', text: 'text-[#014baa]' },
+  emerald: { bg: 'bg-blue-50', border: 'border-[#014baa]/20', text: 'text-[#014baa]' },
+  cyan:    { bg: 'bg-blue-50', border: 'border-[#014baa]/20', text: 'text-[#014baa]' },
+  amber:   { bg: 'bg-blue-50', border: 'border-[#014baa]/20', text: 'text-[#014baa]' },
+  red:     { bg: 'bg-blue-50', border: 'border-[#014baa]/20', text: 'text-[#014baa]' },
 };
 
 const StatCard = ({ label, value, icon: Icon, trend, color = 'primary', subtitle }) => {

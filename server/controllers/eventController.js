@@ -91,10 +91,11 @@ const getEventsByOrganizer = async (req, res) => {
 // POST /api/events  — organizer only
 const createEvent = async (req, res) => {
   const {
-    title, description, date, time, end_time, location,
-    category, image_url, price = 0, capacity = 100,
+    title, description, date, time, end_time, endTime, location,
+    category, image_url, imageUrl, price = 0, capacity = 100,
     status = 'published', trending = false, featured = false, tags = []
   } = req.body;
+  const finalImageUrl = imageUrl || image_url || null;
 
   if (!title || !date || !location)
     return res.status(400).json({ message: 'Title, date, and location are required.' });
@@ -106,8 +107,8 @@ const createEvent = async (req, res) => {
          image_url, price, capacity, organizer_id, status, trending, featured, tags)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
        RETURNING *`,
-      [title, description, date, time, end_time, location, category,
-       image_url, price, capacity, req.user.id, status, trending, featured, tags]
+      [title, description, date, time || null, end_time || endTime || null, location, category,
+       finalImageUrl, price, capacity, req.user.id, status, trending, featured, tags]
     );
     res.status(201).json(camelize(result.rows[0]));
   } catch (err) {
@@ -126,9 +127,10 @@ const updateEvent = async (req, res) => {
       return res.status(403).json({ message: 'Not authorized to edit this event.' });
 
     const {
-      title, description, date, time, end_time, location,
-      category, image_url, price, capacity, status, trending, featured, tags
+      title, description, date, time, end_time, endTime, location,
+      category, image_url, imageUrl, price, capacity, status, trending, featured, tags
     } = req.body;
+    const finalImageUrl = imageUrl || image_url || null;
 
     const result = await pool.query(
       `UPDATE events SET
@@ -136,8 +138,8 @@ const updateEvent = async (req, res) => {
         location=$6, category=$7, image_url=$8, price=$9, capacity=$10,
         status=$11, trending=$12, featured=$13, tags=$14
        WHERE id=$15 RETURNING *`,
-      [title, description, date, time, end_time, location, category,
-       image_url, price, capacity, status, trending, featured, tags, id]
+      [title, description, date, time || null, end_time || endTime || null, location, category,
+       finalImageUrl, price, capacity, status, trending, featured, tags, id]
     );
     res.json(camelize(result.rows[0]));
   } catch (err) {

@@ -29,7 +29,7 @@ export default function UserClustersWidget() {
             Unsupervised segmentation of {data.totalUsers} platform users into behavior clusters.
           </p>
         </div>
-        <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold">
+        <span className="px-2.5 py-1 rounded-full bg-blue-50 text-[#014baa] border border-[#014baa]/30 text-xs font-bold">
           K = 3 Clusters
         </span>
       </div>
@@ -40,7 +40,7 @@ export default function UserClustersWidget() {
             key={cluster.clusterIndex}
             style={{
               background: 'rgba(15, 23, 42, 0.6)',
-              border: `1px solid ${cluster.color}44`,
+              border: `1px solid #014baa44`,
               borderRadius: '12px',
               padding: '16px'
             }}
@@ -49,8 +49,8 @@ export default function UserClustersWidget() {
               <span className="text-2xl">{cluster.icon}</span>
               <span
                 style={{
-                  background: `${cluster.color}22`,
-                  color: cluster.color,
+                  background: `#014baa22`,
+                  color: '#014baa',
                   fontSize: '0.75rem',
                   fontWeight: '700',
                   padding: '2px 8px',
@@ -68,7 +68,7 @@ export default function UserClustersWidget() {
               <div
                 style={{
                   width: `${Math.max(5, cluster.percentage)}%`,
-                  background: cluster.color,
+                  background: '#014baa',
                   height: '100%',
                   borderRadius: '999px',
                   transition: 'width 0.5s ease'

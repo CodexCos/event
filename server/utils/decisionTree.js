@@ -1,18 +1,13 @@
-/**
- * Classification and Regression Trees (CART) Decision Tree Algorithm
- * Implemented in pure JavaScript for EventMate Machine Learning
- */
-
 class Node {
   constructor({ feature = null, threshold = null, left = null, right = null, value = null, impurity = 0, samples = 0, rule = '' }) {
-    this.feature = feature;       // Feature index or name to split on
-    this.threshold = threshold;   // Splitting threshold value
-    this.left = left;             // Left child node (<= threshold or === threshold)
-    this.right = right;           // Right child node (> threshold or !== threshold)
-    this.value = value;           // Target probability / class distribution if leaf node
-    this.impurity = impurity;     // Gini impurity at this node
-    this.samples = samples;       // Number of training samples at node
-    this.rule = rule;             // Human-readable rule description
+    this.feature = feature;
+    this.threshold = threshold;
+    this.left = left;
+    this.right = right;
+    this.value = value;
+    this.impurity = impurity;
+    this.samples = samples;
+    this.rule = rule;
   }
 
   isLeaf() {
@@ -28,10 +23,6 @@ class DecisionTreeClassifier {
     this.featureNames = [];
   }
 
-  /**
-   * Calculate Gini Impurity for a set of labels
-   * Gini = 1 - sum(p_i ^ 2)
-   */
   calculateGini(labels) {
     if (!labels || labels.length === 0) return 0;
     const total = labels.length;
@@ -48,9 +39,6 @@ class DecisionTreeClassifier {
     return impurity;
   }
 
-  /**
-   * Evaluate best feature and threshold to split dataset
-   */
   findBestSplit(dataset, labels) {
     let bestGini = Infinity;
     let bestSplit = null;
@@ -58,11 +46,9 @@ class DecisionTreeClassifier {
     const numFeatures = dataset[0] ? dataset[0].length : 0;
 
     for (let f = 0; f < numFeatures; f++) {
-      // Get unique values for this feature
       const values = [...new Set(dataset.map(row => row[f]))];
 
       for (const val of values) {
-        // Split dataset based on value
         const leftIdx = [];
         const rightIdx = [];
 
@@ -82,7 +68,6 @@ class DecisionTreeClassifier {
         const leftGini = this.calculateGini(leftLabels);
         const rightGini = this.calculateGini(rightLabels);
 
-        // Weighted Gini Impurity of the split
         const weightedGini = (leftLabels.length / numSamples) * leftGini + (rightLabels.length / numSamples) * rightGini;
 
         if (weightedGini < bestGini) {
@@ -103,18 +88,13 @@ class DecisionTreeClassifier {
     return bestSplit;
   }
 
-  /**
-   * Recursively build Decision Tree nodes
-   */
   buildTree(dataset, labels, depth = 0) {
     const numSamples = dataset.length;
     const currentGini = this.calculateGini(labels);
 
-    // Calculate leaf value (probability of positive class y = 1)
     const posCount = labels.filter(l => l === 1).length;
     const leafValue = numSamples > 0 ? posCount / numSamples : 0;
 
-    // Base conditions for leaf node creation
     if (
       depth >= this.maxDepth ||
       numSamples < this.minSamplesSplit ||

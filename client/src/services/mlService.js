@@ -1,8 +1,5 @@
 import { apiFetch } from '../utils/api';
 
-/**
- * Fetch Decision Tree personalized event recommendations for a user
- */
 export const getMLRecommendations = async (userId, limit = 6) => {
   if (!userId) return { recommendations: [], model: 'CART Decision Tree Classifier' };
   try {
@@ -13,9 +10,6 @@ export const getMLRecommendations = async (userId, limit = 6) => {
   }
 };
 
-/**
- * Fetch K-Means user cluster statistics for admins/organizers
- */
 export const getUserClusters = async () => {
   try {
     return await apiFetch('/api/ml/user-clusters');
@@ -25,9 +19,6 @@ export const getUserClusters = async () => {
   }
 };
 
-/**
- * Fetch ML persona badge for a single user
- */
 export const getUserPersona = async (userId) => {
   if (!userId) return null;
   try {

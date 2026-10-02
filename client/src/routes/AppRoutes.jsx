@@ -8,6 +8,9 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import BrowseEvents from '../pages/BrowseEvents';
 import EventDetails from '../pages/EventDetails';
+import DefensePresentation from '../pages/DefensePresentation';
+import PaymentSuccess from '../pages/payment/PaymentSuccess';
+import PaymentFailure from '../pages/payment/PaymentFailure';
 
 // Participant Pages
 import ParticipantDashboard from '../pages/participant/ParticipantDashboard';
@@ -50,9 +53,15 @@ const AppRoutes = () => {
       />
 
       {/* Public Event & Organizer Routes */}
+      <Route path="/defense" element={<DefensePresentation />} />
+      <Route path="/presentation" element={<DefensePresentation />} />
       <Route path="/events" element={<BrowseEvents />} />
       <Route path="/events/:id" element={<EventDetails />} />
       <Route path="/organizers/:id" element={<OrganizerPublicProfile />} />
+
+      {/* Payment Gateway Routes */}
+      <Route path="/payment/success" element={<PaymentSuccess />} />
+      <Route path="/payment/failure" element={<PaymentFailure />} />
 
       {/* Legacy Redirection Routes */}
       <Route path="/participant/browse" element={<Navigate to="/events" replace />} />

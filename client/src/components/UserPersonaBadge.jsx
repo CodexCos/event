@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getUserPersona } from '../services/mlService';
 
+const PRIMARY = '#014baa';
+
 export default function UserPersonaBadge({ userId }) {
   const [persona, setPersona] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -31,10 +33,10 @@ export default function UserPersonaBadge({ userId }) {
         gap: '8px',
         padding: '6px 14px',
         borderRadius: '20px',
-        background: `rgba(255, 255, 255, 0.08)`,
-        border: `1px solid ${persona.color || '#3B82F6'}55`,
+        background: `rgba(1, 75, 170, 0.08)`,
+        border: `1px solid ${PRIMARY}55`,
         backdropFilter: 'blur(8px)',
-        boxShadow: `0 2px 10px ${persona.color || '#3B82F6'}22`,
+        boxShadow: `0 2px 10px ${PRIMARY}22`,
         fontSize: '0.85rem',
         fontWeight: '600',
         color: '#fff',
@@ -43,12 +45,12 @@ export default function UserPersonaBadge({ userId }) {
       title="ML User Persona assigned by K-Means Clustering algorithm"
     >
       <span style={{ fontSize: '1.1rem' }}>{persona.icon || '⚡'}</span>
-      <span style={{ color: persona.color || '#60A5FA' }}>{persona.name}</span>
+      <span style={{ color: PRIMARY }}>{persona.name}</span>
       <span
         style={{
           fontSize: '0.65rem',
-          background: `${persona.color || '#3B82F6'}33`,
-          color: persona.color || '#93C5FD',
+          background: `${PRIMARY}22`,
+          color: PRIMARY,
           padding: '2px 6px',
           borderRadius: '10px',
           textTransform: 'uppercase',

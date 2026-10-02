@@ -15,6 +15,7 @@ import Spinner from '../components/Spinner';
 import { getEventById } from '../services/eventService';
 import { getUserById } from '../services/userService';
 import { isRegistered, registerForEvent, cancelRegistration } from '../services/registrationService';
+import { initiateEsewaPayment, submitEsewaForm } from '../services/paymentService';
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -52,13 +53,18 @@ const EventDetails = () => {
   const handleRegister = async () => {
     setRegistering(true);
     try {
-      await registerForEvent(currentUser.id, id);
-      setRegistered(true);
-      setShowConfirm(false);
-      toast.success('Registered!', `You're registered for ${event.title}`);
+      if (event.price > 0) {
+        toast.info('Redirecting', 'Preparing eSewa payment gateway...');
+        const { esewaUrl, formData } = await initiateEsewaPayment(id);
+        submitEsewaForm(esewaUrl, formData);
+      } else {
+        await registerForEvent(currentUser.id, id);
+        setRegistered(true);
+        setShowConfirm(false);
+        toast.success('Registered!', `You're registered for ${event.title}`);
+      }
     } catch (err) {
       toast.error('Registration failed', err.message);
-    } finally {
       setRegistering(false);
     }
   };
@@ -121,13 +127,13 @@ const EventDetails = () => {
               </Button>
             ) : (
               <Button
-                className="w-full"
+                className={`w-full ${event.price > 0 ? 'bg-[#60bb46] hover:bg-[#52a43b] text-white border-none' : ''}`}
                 size="md"
                 disabled={isFull}
                 onClick={() => setShowConfirm(true)}
                 id="mobile-register-btn"
               >
-                {isFull ? 'Full' : 'Register Now'}
+                {isFull ? 'Full' : event.price > 0 ? 'Pay via eSewa' : 'Register Now'}
               </Button>
             )}
           </div>
@@ -146,7 +152,10 @@ const EventDetails = () => {
           ) : (
             <div>
               <p className="text-3xl font-extrabold text-dark-50">Rs. {event.price}</p>
-              <p className="text-dark-400 text-xs mt-0.5 font-semibold">per person</p>
+              <div className="inline-flex items-center gap-1.5 mt-1.5 px-2.5 py-0.5 rounded-full bg-[#60bb46]/10 border border-[#60bb46]/30 text-[#60bb46] text-xs font-bold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#60bb46]" />
+                eSewa Payment
+              </div>
             </div>
           )}
         </div>
@@ -177,12 +186,12 @@ const EventDetails = () => {
           </div>
         ) : (
           <Button
-            className="w-full"
+            className={`w-full ${event.price > 0 ? 'bg-[#60bb46] hover:bg-[#52a43b] text-white border-none shadow-lg shadow-[#60bb46]/20' : ''}`}
             disabled={isFull}
             onClick={() => setShowConfirm(true)}
             id="register-btn"
           >
-            {isFull ? 'Event Full' : 'Register Now'}
+            {isFull ? 'Event Full' : event.price > 0 ? 'Pay with eSewa' : 'Register Now'}
           </Button>
         )}
 
@@ -296,17 +305,45 @@ const EventDetails = () => {
       </div>
 
       {/* Confirm Modal */}
-      <Modal isOpen={showConfirm} onClose={() => setShowConfirm(false)} title="Confirm Registration">
+      <Modal isOpen={showConfirm} onClose={() => setShowConfirm(false)} title={event.price > 0 ? "Pay with eSewa" : "Confirm Registration"}>
         <div className="space-y-4">
           <p className="text-dark-300 font-medium">You are about to register for:</p>
-          <div className="glass-card p-4 bg-dark-800 border border-dark-700/60">
+          <div className="glass-card p-4 bg-dark-800 border border-dark-700/60 space-y-2">
             <p className="font-bold text-dark-50">{event.title}</p>
-            <p className="text-sm text-dark-400 mt-1 font-semibold">{formattedDate} · {event.time}</p>
+            <p className="text-sm text-dark-400 font-semibold">{formattedDate} · {event.time}</p>
             <p className="text-sm text-dark-400 font-semibold">{event.location}</p>
           </div>
+
+          {event.price > 0 && (
+            <div className="p-4 rounded-xl bg-[#60bb46]/10 border border-[#60bb46]/30 flex items-center justify-between">
+              <div>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#60bb46]" />
+                  <span className="font-extrabold text-[#60bb46] text-sm">eSewa Mobile Wallet</span>
+                </div>
+                <p className="text-xs text-dark-300 mt-0.5">Secure payment gateway redirection</p>
+              </div>
+              <div className="text-right">
+                <span className="text-xs text-dark-400 font-bold block">Total Amount</span>
+                <span className="text-xl font-extrabold text-white">Rs. {event.price}</span>
+              </div>
+            </div>
+          )}
+
           <div className="flex gap-3">
             <Button variant="secondary" className="flex-1" onClick={() => setShowConfirm(false)}>Cancel</Button>
-            <Button className="flex-1" loading={registering} onClick={handleRegister} id="confirm-reg-btn">Confirm Registration</Button>
+            {event.price > 0 ? (
+              <button
+                disabled={registering}
+                onClick={handleRegister}
+                id="confirm-esewa-pay-btn"
+                className="flex-1 font-bold py-2.5 px-4 rounded-xl bg-[#60bb46] hover:bg-[#52a43b] text-white transition-colors flex items-center justify-center gap-2 shadow-lg shadow-[#60bb46]/20 disabled:opacity-50"
+              >
+                {registering ? <Spinner size="sm" /> : `Pay Rs. ${event.price} with eSewa`}
+              </button>
+            ) : (
+              <Button className="flex-1" loading={registering} onClick={handleRegister} id="confirm-reg-btn">Confirm Registration</Button>
+            )}
           </div>
         </div>
       </Modal>

@@ -123,6 +123,12 @@ const MyRegistrations = () => {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
+                      {reg.event.price > 0 && reg.status === 'confirmed' && (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#60bb46]/10 text-[#60bb46] border border-[#60bb46]/30 font-bold text-xs">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#60bb46]" />
+                          Paid Rs. {reg.event.price} (eSewa)
+                        </span>
+                      )}
                       <Badge status={reg.status}>
                         {reg.status.charAt(0).toUpperCase() + reg.status.slice(1)}
                       </Badge>

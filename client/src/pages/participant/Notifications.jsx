@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Bell, BellOff } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
+import { Bell, BellOff, X } from 'lucide-react';
 import Layout from '../../components/Layout';
 import EmptyState from '../../components/EmptyState';
 import Spinner from '../../components/Spinner';
@@ -12,7 +11,6 @@ import {
 } from '../../services/notificationService';
 
 const Notifications = () => {
-  const { currentUser } = useAuth();
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
